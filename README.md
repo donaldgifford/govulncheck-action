@@ -71,9 +71,12 @@ output-format: the format of govulncheck output ('text', 'json', or 'sarif'), de
 output-file: the file to which the output is redirected, default '' (no
 redirection)
 ```
-The precedence for inputs `go-version-input`, `go-version-file`, `check-latest`,
-`cache`, and `cache-dependency-path` specifying Go version and caches is inherited
-from [actions/setup-go](https://github.com/actions/setup-go).
+When `go-version-file` is set it takes precedence over `go-version-input`
+(including its `stable` default), so the scan runs on the toolchain your
+`go.mod`/`go.work` pins. Otherwise, the precedence for inputs
+`go-version-input`, `go-version-file`, `check-latest`, `cache`, and
+`cache-dependency-path` specifying Go version and caches is inherited from
+[actions/setup-go](https://github.com/actions/setup-go).
 
 The govulncheck-action follows the exit codes of govulncheck command.
 Specifying the output format 'json' or 'sarif' will return success even if

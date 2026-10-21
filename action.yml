@@ -47,7 +47,10 @@ runs:
       uses: actions/checkout@v5
     - uses: actions/setup-go@v6
       with:
-        go-version: ${{ inputs.go-version-input }}
+        # setup-go prefers go-version over go-version-file, and go-version-input
+        # defaults to 'stable' -- so forward it only when no version file is
+        # set, otherwise the file would be silently ignored.
+        go-version: ${{ inputs.go-version-file == '' && inputs.go-version-input || '' }}
         check-latest: ${{ inputs.check-latest }}
         go-version-file: ${{ inputs.go-version-file }}
         cache: ${{ inputs.cache }}
